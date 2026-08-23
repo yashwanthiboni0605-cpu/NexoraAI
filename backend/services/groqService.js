@@ -4,6 +4,21 @@ const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
+async function checkGroqModels() {
+  try {
+    const models = await groq.models.list();
+
+    console.log(
+      "AVAILABLE GROQ MODELS:",
+      models.data.map(model => model.id)
+    );
+  } catch (err) {
+    console.error("MODEL LIST ERROR:", err);
+  }
+}
+
+checkGroqModels();
+
 async function analyzeResume(resumeText) {
   try {
 const prompt = `
